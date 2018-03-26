@@ -1,0 +1,37 @@
+@model Ecommerce.Models.RegisterCustomerModel 
+<div><div class="link"><a href="/DashBoard">DashBoard</a></div><div class="link"><a href="/Products">Products</a></div><div class="link"><a href="/Orders">Orders</a></div><div class="link"><a href="/Customers">Customers</a></div></div>
+@{
+    if(TempData["Error"] != null){
+        <p>@TempData["Error"]</p>
+    }
+}
+<div id="AddCust"><h3>Add a new customer</h3>
+<div asp-validation-summary="All"></div>
+<form asp-controller="Order" asp-action="NewCust" method="post">
+    <label asp-for="Name"></label>
+    <input asp-for="Name">
+    <button type="submit">Add</button>
+</form>
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>Customer Name</td>
+                <td>Created Date</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{foreach(var x in ViewBag.Custs)
+                {
+                    <tr>
+                        <td>@x.Name</td>
+                        <td>@x.Created_at</td>
+                        <td><a href="Remove">Remove</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
