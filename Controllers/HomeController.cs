@@ -25,12 +25,6 @@ namespace Ecommerce.Controllers
             return View();
         }
         [HttpGet]
-        [Route("Dashboards")]
-        public IActionResult DashBoard()
-        {
-            return RedirectToAction("Dash");
-        }
-        [HttpGet]
         [Route("Customers")]
         public IActionResult Customer()
         {
@@ -48,6 +42,8 @@ namespace Ecommerce.Controllers
         [Route("Products")]
         public IActionResult Product()
         {
+            List<Product> L = _context.Products.Where(d => d.Name != null).ToList();
+            ViewBag.Prods = L;
             return View();
         }
     }

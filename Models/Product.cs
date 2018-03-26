@@ -12,6 +12,7 @@ namespace Ecommerce.Models
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
         public List<Order> Orders { get; set; }
+        public string Image { get; set; }
         public Product()
         {
             Orders = new List<Order>();

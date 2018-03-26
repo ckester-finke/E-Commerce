@@ -21,6 +21,7 @@ namespace Ecommerce.Controllers
         [Route("NewCust")]
         public IActionResult NewCust(RegisterCustomerModel model)
         {
+            List<Customer> C = _context.Customers.Where(s => s.Name != null).ToList();
             Customer Check = _context.Customers.Where(c => c.Name == model.Name).SingleOrDefault();
             if(ModelState.IsValid){
                 if(Check == null){
@@ -36,7 +37,36 @@ namespace Ecommerce.Controllers
                     return Redirect("Customers");
                 }
             }
-            return Redirect("Customers");
+            ViewBag.Custs = C;
+            return View("Customer");
+        }
+        [HttpPost]
+        [Route("NewProd")]
+        public IActionResult NewProd(RegisterProductModel model)
+        {
+            List<Product> L = _context.Products.Where(d => d.Name != null).ToList();
+            Product Test = _context.Products.Where(p => p.Name == model.Name).SingleOrDefault();
+            if(ModelState.IsValid)
+            {
+                if(Test == null)
+                {
+                    Product New = new Product();
+                    New.Name = model.Name;
+                    New.Description = model.Description;
+                    New.Quantity = model.Quantity;
+                    New.Image = model.Image;
+                    New.Created_at = DateTime.Now;
+                    New.Updated_at = DateTime.Now;
+                    _context.Products.Add(New);
+                    _context.SaveChanges();
+                    return Redirect("Products");
+                }else{
+                     TempData["Error"] = "Name already in system";
+                    return Redirect("Products");      
+                }
+            }
+            ViewBag.Prods = L;
+            return View("Product");
         }
     }
 }

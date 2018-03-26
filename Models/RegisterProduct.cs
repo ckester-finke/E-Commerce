@@ -16,5 +16,7 @@ namespace Ecommerce.Models
         public string Description { get; set; }
         [Required]
         public int Quantity { get; set; }
+        [Required]
+        public string Image { get; set; }
     }
 }

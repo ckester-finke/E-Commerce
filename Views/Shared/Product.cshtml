@@ -1,0 +1,36 @@
+@model Ecommerce.Models.RegisterProductModel
+<div>
+    <div class="link"><a href="/">DashBoard</a></div>
+    <div class="link"><a href="/Products">Products</a></div>
+    <div class="link"><a href="/Orders">Orders</a></div>
+    <div class="link"><a href="/Customers">Customers</a></div>
+</div>
+<div id="AddProd">
+    @{
+        if(TempData["Error"] != null){
+            <p>@TempData["Error"]</p>
+        }
+    }
+    <h2>Add New Product</h2>
+    <div asp-validation-summary="All"></div>
+    <form asp-controller="Order" asp-action="NewProd" method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name">
+        <label asp-for="Description"></label>
+        <input asp-for="Description">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity">
+        <label asp-for="Image"></label>
+        <input asp-for="Image">
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div id="ProdView">
+    @{foreach(var i in ViewBag.Prods)
+        {
+                <img class="Image" src="@i.Image">
+                <a href="@i.Productid">@i.Name</a>
+                <p>Quantity: @i.Quantity</p>
+        }
+    }
+</div>
